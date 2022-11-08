@@ -1,3 +1,8 @@
+var requestOptions = {
+    method: 'GET',
+};
+
+
 const map = L.map('map').setView([45.78191671914715, 4.748414], 13); //create the map
 
 
