@@ -110,12 +110,12 @@ function addFavoris(i){                                         //function who u
 function updateMarker(json){                                //the function who list your favoris marker
     const xhttp = json
     json = JSON.parse(json.response);
-    document.getElementById('favoris').innerHTML = "Vos favoris sont :";
+    document.getElementById('favoris').innerHTML = "<h2 id='title'>VOS FAVORIS:</h2>";
     for(a = 0; a<json.length; a++) {
 
         if(localStorage.getItem("favoris"+a) == "True"){
 
-            document.getElementById('favoris').innerHTML += "<br>"+json[a].name + " Il y a "+json[a].available_bikes+"/"+ json[a].bike_stands+" Velo disponible";
+            document.getElementById('favoris').innerHTML += "<br><label class='list'>"+json[a].name + " Il y a "+json[a].available_bikes+"/"+ json[a].bike_stands+" Velo disponible </label>";
 
         }
 

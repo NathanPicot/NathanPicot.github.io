@@ -1,3 +1,7 @@
+body{
+    background-color: #E9EDC9;
+}
+
 #map{
     height: 600px;
     width: 100%;
@@ -5,4 +9,13 @@
 
 #name{
     color: white;
+}
+
+#title{
+    margin-left: 20px;
+}
+
+
+.list{
+    margin-left: 30px;
 }
