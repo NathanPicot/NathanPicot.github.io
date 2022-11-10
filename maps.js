@@ -2,10 +2,8 @@ var requestOptions = {
     method: 'GET',
 };
 
-
+loadind_screen();
 const map = L.map('map').setView([45.78191671914715, 4.748414], 13); //create the map
-
-
 
 
 var greenIcon = L.icon({            //create the green marker for add to "Favoris"
@@ -14,10 +12,7 @@ var greenIcon = L.icon({            //create the green marker for add to "Favori
     iconAnchor:   [11, 41], // point of the icon which will correspond to marker's location
     iconSize:     [30, 40], // size of the icon
 
-
-
 });
-
 
 if(navigator.geolocation) {                             //Get the current location
     function maPosition(position) {
@@ -33,22 +28,30 @@ if(navigator.geolocation) {                             //Get the current locati
     // Pas de support, proposer une alternative ?
 }
 
-
 var api = "https://api.jcdecaux.com/vls/v1/stations?contract=lyon&apiKey=ed01e060cf060e0356db159ccd729604caa3efc2"
-
 
 loadDoc(api, bike); //first load off the bike
 loadDoc(api,updateMarker); //first load of the favoris list
 
-
 function loadDoc(url, cFunction) {      //function who get the json files from the api
+
     const xhttp = new XMLHttpRequest();
+
     xhttp.onload = function() {cFunction(this);}
+
     xhttp.open("GET", url);
     xhttp.send();
 }
 
+function loadind_screen(){
 
+    if (document.getElementById('loading').classList.item("loader")){
+
+        document.getElementById('loading').classList.remove("loader");
+    }else{
+        document.getElementById('loading').classList.add("loader");
+    }
+}
 
 function bike (xhttp){  //function who place the marker on the maps
 
@@ -64,12 +67,12 @@ function bike (xhttp){  //function who place the marker on the maps
 
         if(localStorage.getItem("favoris"+i) == "True"){        //condition for know which marker place
             var bike_marker_green = L.marker([json[i].position.lat, json[i].position.lng], {icon: greenIcon }).addTo(map).bindPopup( //green marker
-                "<table class=\"w3-table\">\n" +
+                "<table class=\"\">\n" +
                 "<tr>\n" +
-                "<th  id=\'name\' type=\"button\" class=\"w3-button w3-khaki w3-round-large\">" +json[i].name+"</th>"+
+                "<th  id=\'name\' type=\"button\" class=\"name\">" +json[i].name+"</th>"+
                 "<td>"+ json[i].status+"<br></td>"+
 
-                "<td><button id='fav' onclick='addFavoris("+ i +"), loadDoc(api, updateMarker, loadDoc(api, bike))'>Favoris</button><br></td>"+
+                "<td><button id='fav' onclick='loadind_screen(),addFavoris("+ i +"), loadDoc(api, updateMarker, loadDoc(api, bike))'>Favoris</button><br></td>"+
 
                 "</tr>\n" +
                 "<tr>\n" +
@@ -80,12 +83,12 @@ function bike (xhttp){  //function who place the marker on the maps
         }else {
 
             var bike_marker_green = L.marker([json[i].position.lat, json[i].position.lng]).addTo(map).bindPopup(        //default marker
-                "<table class=\"w3-table\">\n" +
+                "<table class=\"\">\n" +
                 "<tr>\n" +
-                "<th  id=\'name\' type=\"button\" class=\"w3-button w3-khaki w3-round-large\">" +json[i].name+"</th>"+
+                "<th  id=\'name\' type=\"button\" class=\"name\">" +json[i].name+"</th>"+
                 "<td>"+ json[i].status+"<br></td>"+
 
-                "<td><button id='fav' onclick='addFavoris("+ i +"), loadDoc(api, updateMarker), loadDoc(api, bike)'>Favoris</button><br></td>"+
+                "<td><button id='fav' onclick='loadind_screen(),addFavoris("+ i +"), loadDoc(api, updateMarker), loadDoc(api, bike)'>Favoris</button><br></td>"+
 
                 "</tr>\n" +
                 "<tr>\n" +
@@ -97,6 +100,7 @@ function bike (xhttp){  //function who place the marker on the maps
 
 
     };
+    loadind_screen();
     };
 
 
